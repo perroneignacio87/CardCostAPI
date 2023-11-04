@@ -9,12 +9,10 @@ namespace Card_Cost_API.Controllers
     public class CardCostController : ControllerBase
     {
         private readonly CardCostDBContext _dbContext;
-        private readonly IBintableAPI _bintableAPI;
 
-        public CardCostController(CardCostDBContext dbContext, IBintableAPI bintableAPI)
+        public CardCostController(CardCostDBContext dbContext)
         {
             _dbContext = dbContext;
-            _bintableAPI = bintableAPI;
         }
 
         [HttpPost]
@@ -23,6 +21,7 @@ namespace Card_Cost_API.Controllers
         {
             try
             {
+                var bintableAPI = new BintableAPI();
                 IConfiguration configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
                 string? configApiKey = configuration.GetSection("ApiKey").Value;
 
@@ -50,7 +49,7 @@ namespace Card_Cost_API.Controllers
 
                         string? countryCode = null;
 
-                        countryCode = await _bintableAPI.GetCardCountryCode(issuerIdentificationNumber);
+                        countryCode = await bintableAPI.GetCardCountryCode(issuerIdentificationNumber);
 
                         if (countryCode == null)
                         {

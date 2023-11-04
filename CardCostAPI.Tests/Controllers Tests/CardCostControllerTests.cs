@@ -20,9 +20,7 @@ namespace CardCostAPI.Tests
             var countryCode = "EG";
             var apiKey = "he8k39p2l29lisj30s1b4zoal20pi4kk3bvs8l";
             var context = GetInMemoryDbContextWithCountryCosts();
-            var mockBintableAPI = new Mock<IBintableAPI>();
-            mockBintableAPI.Setup(api => api.GetCardCountryCode("403244")).ReturnsAsync(countryCode);
-            var controller = new CardCostController(context, mockBintableAPI.Object);
+            var controller = new CardCostController(context);
 
             // Act
             var result = await controller.GetCardCost(apiKey, inputJson);
@@ -40,9 +38,8 @@ namespace CardCostAPI.Tests
             var countryCode = "Others";
             var apiKey = "he8k39p2l29lisj30s1b4zoal20pi4kk3bvs8l";
             var context = GetInMemoryDbContextWithCountryCosts();
-            var mockBintableAPI = new Mock<IBintableAPI>();
-            mockBintableAPI.Setup(api => api.GetCardCountryCode("455175")).ReturnsAsync(countryCode);
-            var controller = new CardCostController(context, mockBintableAPI.Object);
+
+            var controller = new CardCostController(context);
 
             // Act
             var result = await controller.GetCardCost(apiKey, inputJson);
@@ -59,9 +56,8 @@ namespace CardCostAPI.Tests
             var inputJson = new JsonObject { ["card_number"] = "45517" };
             var apiKey = "he8k39p2l29lisj30s1b4zoal20pi4kk3bvs8l";
             var context = GetInMemoryDbContextWithCountryCosts();
-            var mockBintableAPI = new Mock<IBintableAPI>();
 
-            var controller = new CardCostController(context, mockBintableAPI.Object);
+            var controller = new CardCostController(context);
 
             // Act
             var result = await controller.GetCardCost(apiKey, inputJson);
@@ -77,9 +73,8 @@ namespace CardCostAPI.Tests
             var inputJson = new JsonObject { ["card_number"] = "455175" };
             var apiKey = "invalid";
             var context = GetInMemoryDbContextWithCountryCosts();
-            var mockBintableAPI = new Mock<IBintableAPI>();
 
-            var controller = new CardCostController(context, mockBintableAPI.Object);
+            var controller = new CardCostController(context);
 
             // Act
             var result = await controller.GetCardCost(apiKey, inputJson);

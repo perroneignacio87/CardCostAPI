@@ -41,7 +41,11 @@ namespace Card_Cost_API.Controllers
                         }
 
                         string countryCode = inputJson["country"].ToString();
-                        countryCode = countryCode.ToUpper();
+                       if(countryCode.Length == 2)
+                        {
+                            countryCode = countryCode.ToUpper();
+                        }
+                        
                         string stringCost = inputJson["cost"].ToString();
                         decimal cost;
 
